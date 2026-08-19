@@ -1,0 +1,1921 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Team Hukuman Jabatan</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#182848;
+    --secondary:#4b6cb7;
+    --danger:#dc3545;
+    --warning:#f59f00;
+    --success:#198754;
+    --bg:#f4f6f9;
+    --dark:#172033;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:var(--bg);
+    color:#202735;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:260px;
+    height:100vh;
+    background:linear-gradient(180deg,#111b33,#1d315c);
+    color:white;
+    padding:25px 18px;
+    z-index:1000;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:40px;
+}
+
+.brand-icon{
+    width:45px;
+    height:45px;
+    background:rgba(255,255,255,.12);
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:23px;
+}
+
+.brand h4{
+    font-size:17px;
+    margin:0;
+    font-weight:700;
+}
+
+.brand small{
+    opacity:.6;
+}
+
+.nav-menu{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.nav-menu li{
+    margin-bottom:8px;
+}
+
+.nav-menu button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#dbe3f4;
+    padding:13px 15px;
+    border-radius:10px;
+    text-align:left;
+    transition:.2s;
+}
+
+.nav-menu button:hover,
+.nav-menu button.active{
+    background:rgba(255,255,255,.12);
+    color:white;
+}
+
+.nav-menu i{
+    width:25px;
+    display:inline-block;
+}
+
+.sidebar-footer{
+    position:absolute;
+    bottom:25px;
+    left:20px;
+    right:20px;
+    font-size:12px;
+    color:#9ca9c5;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:260px;
+    min-height:100vh;
+}
+
+.topbar{
+    height:75px;
+    background:white;
+    border-bottom:1px solid #e5e8ee;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px;
+}
+
+.topbar-title{
+    font-weight:700;
+    color:var(--dark);
+}
+
+.user-profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#4b6cb7,#182848);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.content{
+    padding:35px;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-header{
+    margin-bottom:25px;
+}
+
+.page-header h2{
+    font-size:26px;
+    font-weight:750;
+    margin-bottom:5px;
+}
+
+.page-header p{
+    color:#7b8495;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card-custom{
+    background:white;
+    border:0;
+    border-radius:16px;
+    box-shadow:0 5px 20px rgba(24,40,72,.06);
+}
+
+.card-header-custom{
+    padding:20px 24px;
+    border-bottom:1px solid #edf0f4;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.card-header-custom h5{
+    margin:0;
+    font-weight:700;
+}
+
+/* =========================
+   PERSON CARD
+========================= */
+
+.person-card{
+    padding:30px;
+}
+
+.person-header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.person-avatar{
+    width:75px;
+    height:75px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#182848,#4b6cb7);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:700;
+}
+
+.person-name{
+    font-size:24px;
+    font-weight:750;
+    margin-bottom:5px;
+}
+
+.person-position{
+    color:#697386;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:25px;
+}
+
+.info-box{
+    background:#f7f8fa;
+    padding:16px;
+    border-radius:12px;
+}
+
+.info-label{
+    font-size:12px;
+    color:#7c8798;
+    margin-bottom:5px;
+}
+
+.info-value{
+    font-weight:650;
+}
+
+.error-box{
+    margin-top:20px;
+    background:#fff6f6;
+    border-left:4px solid var(--danger);
+    padding:18px;
+    border-radius:8px;
+}
+
+.error-title{
+    color:var(--danger);
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn-vote{
+    background:linear-gradient(135deg,#182848,#4b6cb7);
+    color:white;
+    border:0;
+    border-radius:10px;
+    padding:12px 22px;
+    font-weight:650;
+}
+
+.btn-vote:hover{
+    color:white;
+    opacity:.9;
+}
+
+/* =========================
+   STAT CARD
+========================= */
+
+.stat-card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 5px 20px rgba(24,40,72,.06);
+    height:100%;
+}
+
+.stat-icon{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    background:#eef2ff;
+    color:#4b6cb7;
+}
+
+.stat-number{
+    font-size:30px;
+    font-weight:800;
+    margin-top:15px;
+}
+
+.stat-label{
+    color:#7c8798;
+    font-size:14px;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress{
+    height:12px;
+    border-radius:20px;
+    background:#edf0f4;
+}
+
+.progress-bar{
+    border-radius:20px;
+}
+
+/* =========================
+   RESULT ITEM
+========================= */
+
+.result-item{
+    margin-bottom:22px;
+}
+
+.result-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.result-name{
+    font-weight:650;
+}
+
+.result-value{
+    font-weight:750;
+}
+
+.recommendation{
+    background:linear-gradient(135deg,#182848,#4b6cb7);
+    color:white;
+    border-radius:16px;
+    padding:25px;
+    margin-top:25px;
+}
+
+.recommendation-label{
+    opacity:.75;
+    font-size:13px;
+}
+
+.recommendation-title{
+    font-size:25px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-content{
+    border:0;
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.modal-header{
+    background:linear-gradient(135deg,#182848,#4b6cb7);
+    color:white;
+    border:0;
+}
+
+.vote-option{
+    border:2px solid #edf0f4;
+    border-radius:12px;
+    padding:15px;
+    cursor:pointer;
+    margin-bottom:10px;
+    transition:.2s;
+}
+
+.vote-option:hover{
+    border-color:#4b6cb7;
+    background:#f7f9ff;
+}
+
+.vote-option input{
+    margin-right:10px;
+}
+
+.vote-section-title{
+    font-weight:750;
+    margin-bottom:12px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.form-control,
+.form-select{
+    border-radius:10px;
+    padding:12px;
+    border:1px solid #dfe4ec;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#4b6cb7;
+    box-shadow:0 0 0 3px rgba(75,108,183,.1);
+}
+
+.empty-state{
+    padding:60px 20px;
+    text-align:center;
+    color:#8a94a6;
+}
+
+.empty-state i{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.3s;
+    }
+
+    .sidebar.show{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+        border:0;
+        background:none;
+        font-size:24px;
+    }
+
+    .content{
+        padding:20px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        padding:0 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon">
+            <i class="bi bi-shield-check"></i>
+        </div>
+
+        <div>
+            <h4>Team Hukuman</h4>
+            <small>Evaluation System</small>
+        </div>
+    </div>
+
+    <ul class="nav-menu">
+
+        <li>
+            <button class="nav-btn active" data-page="home">
+                <i class="bi bi-house"></i>
+                Beranda
+            </button>
+        </li>
+
+        <li>
+            <button class="nav-btn" data-page="admin">
+                <i class="bi bi-person-gear"></i>
+                Admin
+            </button>
+        </li>
+
+        <li>
+            <button class="nav-btn" data-page="results">
+                <i class="bi bi-bar-chart-line"></i>
+                Hasil Voting
+            </button>
+        </li>
+
+    </ul>
+
+    <div class="sidebar-footer">
+        Sistem Evaluasi Internal<br>
+        © 2026 Team Hukuman Jabatan
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div>
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <span class="topbar-title">
+                Team Hukuman Jabatan
+            </span>
+        </div>
+
+        <div class="user-profile">
+            <div class="avatar">
+                <i class="bi bi-person"></i>
+            </div>
+
+            <div>
+                <strong>Team Member</strong>
+            </div>
+        </div>
+
+    </header>
+
+
+    <div class="content">
+
+
+        <!-- =========================
+             HOME
+        ========================= -->
+
+        <section class="page active" id="home">
+
+            <div class="page-header">
+                <h2>Orang Terperiksa Hari Ini</h2>
+
+                <p>
+                    Evaluasi dan berikan rekomendasi terhadap kasus yang sedang diperiksa.
+                </p>
+            </div>
+
+            <div id="personContainer"></div>
+
+        </section>
+
+
+        <!-- =========================
+             ADMIN
+        ========================= -->
+
+        <section class="page" id="admin">
+
+            <div class="page-header">
+                <h2>Administrasi Pemeriksaan</h2>
+
+                <p>
+                    Masukkan data orang yang akan diperiksa hari ini.
+                </p>
+            </div>
+
+            <div class="card-custom">
+
+                <div class="card-header-custom">
+
+                    <h5>
+                        <i class="bi bi-person-plus me-2"></i>
+                        Data Orang Terperiksa
+                    </h5>
+
+                </div>
+
+                <div class="p-4">
+
+                    <form id="personForm">
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Nama Terperiksa
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="nama"
+                                    placeholder="Masukkan nama lengkap"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    NPP
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="npp"
+                                    placeholder="Nomor Pokok Pegawai"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Jabatan
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="jabatan"
+                                    placeholder="Contoh: Supervisor"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Kantor
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="kantor"
+                                    placeholder="Nama kantor / cabang"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="col-12">
+
+                                <label class="form-label">
+                                    Definisi Kesalahan
+                                </label>
+
+                                <textarea
+                                    class="form-control"
+                                    id="kesalahan"
+                                    rows="5"
+                                    placeholder="Jelaskan definisi atau uraian pelanggaran..."
+                                    required
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex gap-2 mt-4">
+
+                            <button
+                                type="submit"
+                                class="btn btn-vote"
+                            >
+                                <i class="bi bi-save me-2"></i>
+                                Simpan Data
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-danger"
+                                id="resetData"
+                            >
+                                <i class="bi bi-trash me-2"></i>
+                                Reset Data
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RESULTS
+        ========================= -->
+
+        <section class="page" id="results">
+
+            <div class="page-header">
+
+                <h2>Dashboard Hasil Voting</h2>
+
+                <p>
+                    Rekapitulasi hasil evaluasi seluruh anggota team.
+                </p>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-md-4">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <div
+                            class="stat-number"
+                            id="totalVotes"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Total Voting
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+
+                        <div
+                            class="stat-number"
+                            id="majorityViolation"
+                        >
+                            -
+                        </div>
+
+                        <div class="stat-label">
+                            Tingkat Pelanggaran Mayoritas
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-gavel"></i>
+                        </div>
+
+                        <div
+                            class="stat-number"
+                            id="majorityDecision"
+                        >
+                            -
+                        </div>
+
+                        <div class="stat-label">
+                            Keputusan Mayoritas
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VIOLATION -->
+
+            <div class="card-custom mb-4">
+
+                <div class="card-header-custom">
+
+                    <h5>
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Tingkat Pelanggaran
+                    </h5>
+
+                </div>
+
+                <div class="p-4">
+
+                    <div id="violationResults"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DECISION -->
+
+            <div class="card-custom">
+
+                <div class="card-header-custom">
+
+                    <h5>
+                        <i class="bi bi-gavel me-2"></i>
+                        Keputusan Team
+                    </h5>
+
+                </div>
+
+                <div class="p-4">
+
+                    <div id="decisionResults"></div>
+
+                    <div class="recommendation">
+
+                        <div class="recommendation-label">
+                            REKOMENDASI BERDASARKAN SUARA TERBANYAK
+                        </div>
+
+                        <div
+                            class="recommendation-title"
+                            id="recommendation"
+                        >
+                            Belum ada voting
+                        </div>
+
+                        <div class="mt-2">
+                            Keputusan ini merupakan hasil akumulasi
+                            suara anggota team.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     VOTING MODAL
+========================= -->
+
+<div
+    class="modal fade"
+    id="votingModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h5 class="modal-title">
+                        <i class="bi bi-check2-square me-2"></i>
+                        Evaluasi Orang Terperiksa
+                    </h5>
+
+                    <small>
+                        Berikan penilaian berdasarkan hasil pemeriksaan.
+                    </small>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+
+            <form id="voteForm">
+
+                <div class="modal-body">
+
+                    <!-- VIOLATION -->
+
+                    <div class="vote-section-title">
+                        1. Tingkat Pelanggaran
+                    </div>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="violation"
+                            value="Rendah"
+                            required
+                        >
+
+                        <strong>Rendah</strong>
+
+                        <div class="small text-muted">
+                            Pelanggaran dengan dampak relatif ringan.
+                        </div>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="violation"
+                            value="Sedang"
+                        >
+
+                        <strong>Sedang</strong>
+
+                        <div class="small text-muted">
+                            Pelanggaran yang membutuhkan tindakan korektif.
+                        </div>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="violation"
+                            value="Tinggi"
+                        >
+
+                        <strong>Tinggi</strong>
+
+                        <div class="small text-muted">
+                            Pelanggaran serius dengan dampak signifikan.
+                        </div>
+
+                    </label>
+
+
+                    <hr class="my-4">
+
+
+                    <!-- DECISION -->
+
+                    <div class="vote-section-title">
+                        2. Keputusan Yang Diambil
+                    </div>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="decision"
+                            value="Pecat"
+                            required
+                        >
+
+                        <strong>Pecat</strong>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="decision"
+                            value="Kontrak Tidak Diperpanjang"
+                        >
+
+                        <strong>Kontrak Tidak Diperpanjang</strong>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="decision"
+                            value="Dievaluasi"
+                        >
+
+                        <strong>Dievaluasi</strong>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="decision"
+                            value="Dibina"
+                        >
+
+                        <strong>Dibina</strong>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="decision"
+                            value="Mutasi"
+                        >
+
+                        <strong>Mutasi</strong>
+
+                    </label>
+
+
+                    <label class="vote-option">
+
+                        <input
+                            type="radio"
+                            name="decision"
+                            value="Demosi"
+                        >
+
+                        <strong>Demosi</strong>
+
+                    </label>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                    >
+                        Batal
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-vote"
+                    >
+                        <i class="bi bi-send me-2"></i>
+                        Kirim Voting
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+/* =====================================================
+   DATABASE LOCAL STORAGE
+===================================================== */
+
+const PERSON_KEY = "team_hukuman_person";
+const VOTE_KEY = "team_hukuman_votes";
+
+
+/* =====================================================
+   DATA DEFAULT
+===================================================== */
+
+const defaultVotes = {
+    violations:{
+        "Rendah":0,
+        "Sedang":0,
+        "Tinggi":0
+    },
+
+    decisions:{
+        "Pecat":0,
+        "Kontrak Tidak Diperpanjang":0,
+        "Dievaluasi":0,
+        "Dibina":0,
+        "Mutasi":0,
+        "Demosi":0
+    }
+};
+
+
+/* =====================================================
+   LOAD PERSON
+===================================================== */
+
+function getPerson(){
+
+    return JSON.parse(
+        localStorage.getItem(PERSON_KEY)
+    );
+
+}
+
+
+/* =====================================================
+   LOAD VOTES
+===================================================== */
+
+function getVotes(){
+
+    const data = localStorage.getItem(VOTE_KEY);
+
+    if(!data){
+
+        return structuredClone(defaultVotes);
+
+    }
+
+    return JSON.parse(data);
+
+}
+
+
+/* =====================================================
+   SAVE VOTES
+===================================================== */
+
+function saveVotes(data){
+
+    localStorage.setItem(
+        VOTE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function renderPerson(){
+
+    const container =
+        document.getElementById("personContainer");
+
+    const person = getPerson();
+
+    if(!person){
+
+        container.innerHTML = `
+
+            <div class="card-custom empty-state">
+
+                <i class="bi bi-person-x"></i>
+
+                <h5>Belum Ada Data Terperiksa</h5>
+
+                <p>
+                    Admin belum memasukkan data orang yang
+                    akan diperiksa hari ini.
+                </p>
+
+                <button
+                    class="btn btn-vote mt-2"
+                    onclick="openAdmin()"
+                >
+                    <i class="bi bi-person-plus me-2"></i>
+                    Input Data
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const initial =
+        person.nama
+        .charAt(0)
+        .toUpperCase();
+
+
+    container.innerHTML = `
+
+        <div class="card-custom person-card">
+
+            <div class="person-header">
+
+                <div class="person-avatar">
+                    ${initial}
+                </div>
+
+                <div>
+
+                    <div class="person-name">
+                        ${escapeHtml(person.nama)}
+                    </div>
+
+                    <div class="person-position">
+                        ${escapeHtml(person.jabatan)}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        NPP
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(person.npp)}
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Jabatan
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(person.jabatan)}
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <div class="info-label">
+                        Kantor
+                    </div>
+
+                    <div class="info-value">
+                        ${escapeHtml(person.kantor)}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="error-box">
+
+                <div class="error-title">
+
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    Definisi Kesalahan
+
+                </div>
+
+                <div>
+                    ${escapeHtml(person.kesalahan)}
+                </div>
+
+            </div>
+
+
+            <div class="d-flex justify-content-end mt-4">
+
+                <button
+                    class="btn btn-vote"
+                    onclick="openVoting()"
+                >
+
+                    <i class="bi bi-check2-square me-2"></i>
+
+                    Berikan Voting
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ADMIN FORM
+===================================================== */
+
+document
+    .getElementById("personForm")
+    .addEventListener("submit",function(e){
+
+        e.preventDefault();
+
+
+        const person = {
+
+            nama:
+                document.getElementById("nama").value.trim(),
+
+            npp:
+                document.getElementById("npp").value.trim(),
+
+            jabatan:
+                document.getElementById("jabatan").value.trim(),
+
+            kantor:
+                document.getElementById("kantor").value.trim(),
+
+            kesalahan:
+                document.getElementById("kesalahan").value.trim(),
+
+            updated:
+                new Date().toISOString()
+
+        };
+
+
+        localStorage.setItem(
+            PERSON_KEY,
+            JSON.stringify(person)
+        );
+
+
+        /* Reset voting ketika kasus baru dibuat */
+
+        localStorage.removeItem(VOTE_KEY);
+
+
+        alert(
+            "Data orang terperiksa berhasil disimpan."
+        );
+
+
+        renderPerson();
+        renderResults();
+
+        showPage("home");
+
+    });
+
+
+/* =====================================================
+   RESET DATA
+===================================================== */
+
+document
+    .getElementById("resetData")
+    .addEventListener("click",function(){
+
+        const confirmReset =
+            confirm(
+                "Yakin ingin menghapus data terperiksa dan seluruh hasil voting?"
+            );
+
+
+        if(!confirmReset) return;
+
+
+        localStorage.removeItem(PERSON_KEY);
+        localStorage.removeItem(VOTE_KEY);
+
+
+        document
+            .getElementById("personForm")
+            .reset();
+
+
+        renderPerson();
+        renderResults();
+
+
+        alert("Seluruh data berhasil dihapus.");
+
+    });
+
+
+/* =====================================================
+   VOTING
+===================================================== */
+
+let votingModal;
+
+
+function openVoting(){
+
+    const person = getPerson();
+
+    if(!person){
+
+        alert("Belum ada orang terperiksa.");
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("voteForm")
+        .reset();
+
+
+    votingModal =
+        new bootstrap.Modal(
+            document.getElementById("votingModal")
+        );
+
+
+    votingModal.show();
+
+}
+
+
+/* =====================================================
+   SUBMIT VOTE
+===================================================== */
+
+document
+    .getElementById("voteForm")
+    .addEventListener("submit",function(e){
+
+        e.preventDefault();
+
+
+        const violation =
+            document.querySelector(
+                'input[name="violation"]:checked'
+            );
+
+
+        const decision =
+            document.querySelector(
+                'input[name="decision"]:checked'
+            );
+
+
+        if(!violation || !decision){
+
+            alert(
+                "Silakan pilih tingkat pelanggaran dan keputusan."
+            );
+
+            return;
+
+        }
+
+
+        const votes = getVotes();
+
+
+        votes.violations[
+            violation.value
+        ]++;
+
+
+        votes.decisions[
+            decision.value
+        ]++;
+
+
+        saveVotes(votes);
+
+
+        votingModal.hide();
+
+
+        renderResults();
+
+
+        alert(
+            "Voting berhasil dicatat."
+        );
+
+    });
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+function renderResults(){
+
+    const votes = getVotes();
+
+
+    let total = 0;
+
+
+    Object.values(votes.violations)
+        .forEach(v => total += v);
+
+
+    document
+        .getElementById("totalVotes")
+        .innerText = total;
+
+
+    /* ===========================
+       MAJORITY VIOLATION
+    =========================== */
+
+    const majorityViolation =
+        getMajority(votes.violations);
+
+
+    document
+        .getElementById("majorityViolation")
+        .innerText =
+            majorityViolation || "-";
+
+
+    /* ===========================
+       MAJORITY DECISION
+    =========================== */
+
+    const majorityDecision =
+        getMajority(votes.decisions);
+
+
+    document
+        .getElementById("majorityDecision")
+        .innerText =
+            majorityDecision || "-";
+
+
+    document
+        .getElementById("recommendation")
+        .innerText =
+            majorityDecision
+            ? majorityDecision
+            : "Belum ada voting";
+
+
+    renderViolation(votes.violations,total);
+
+    renderDecision(votes.decisions,total);
+
+}
+
+
+/* =====================================================
+   VIOLATION RESULT
+===================================================== */
+
+function renderViolation(data,total){
+
+    const container =
+        document.getElementById(
+            "violationResults"
+        );
+
+
+    container.innerHTML = "";
+
+
+    Object.entries(data)
+        .forEach(([name,value]) => {
+
+            const percent =
+                total === 0
+                ? 0
+                : Math.round(
+                    (value / total) * 100
+                );
+
+
+            container.innerHTML += `
+
+                <div class="result-item">
+
+                    <div class="result-top">
+
+                        <div class="result-name">
+                            ${name}
+                        </div>
+
+                        <div class="result-value">
+                            ${value} suara
+                            (${percent}%)
+                        </div>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width:${percent}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   DECISION RESULT
+===================================================== */
+
+function renderDecision(data,total){
+
+    const container =
+        document.getElementById(
+            "decisionResults"
+        );
+
+
+    container.innerHTML = "";
+
+
+    Object.entries(data)
+        .forEach(([name,value]) => {
+
+            const percent =
+                total === 0
+                ? 0
+                : Math.round(
+                    (value / total) * 100
+                );
+
+
+            container.innerHTML += `
+
+                <div class="result-item">
+
+                    <div class="result-top">
+
+                        <div class="result-name">
+                            ${name}
+                        </div>
+
+                        <div class="result-value">
+                            ${value} suara
+                            (${percent}%)
+                        </div>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width:${percent}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   FIND MAJORITY
+===================================================== */
+
+function getMajority(data){
+
+    const entries =
+        Object.entries(data);
+
+
+    if(
+        entries.length === 0 ||
+        entries.every(([key,value]) => value === 0)
+    ){
+
+        return null;
+
+    }
+
+
+    entries.sort(
+        (a,b) => b[1] - a[1]
+    );
+
+
+    return entries[0][0];
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const page =
+                    this.dataset.page;
+
+                showPage(page);
+
+            }
+        );
+
+    });
+
+
+function showPage(page){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(page)
+        .classList.add("active");
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+            if(
+                button.dataset.page === page
+            ){
+
+                button.classList.add("active");
+
+            }
+
+        });
+
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("show");
+
+
+    if(page === "results"){
+
+        renderResults();
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN ADMIN
+===================================================== */
+
+function openAdmin(){
+
+    showPage("admin");
+
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+document
+    .getElementById("mobileMenu")
+    .addEventListener(
+        "click",
+        function(){
+
+            document
+                .getElementById("sidebar")
+                .classList.toggle("show");
+
+        }
+    );
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+renderPerson();
+
+renderResults();
+
+</script>
+
+</body>
+</html>
+```
