@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tim Hukuman Jabatan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#0a0e17;
+  --bg-panel:#121a2b;
+  --bg-panel-2:#182338;
+  --bg-panel-3:#1e2a42;
+  --border:#28344d;
+  --border-soft:#1c2740;
+  --gold:#c9a24b;
+  --gold-light:#e4c77a;
+  --teal:#3ec6be;
+  --teal-dim:#2a8f89;
+  --text:#eaedf3;
+  --text-muted:#8a96ad;
+  --text-faint:#5c6884;
+  --green:#5fbe8c;
+  --amber:#d9c15a;
+  --orange:#e3924f;
+  --red:#e15b6f;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201,162,75,0.10), transparent 60%),
+    radial-gradient(ellipse 900px 600px at 100% 0%, rgba(62,198,190,0.08), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.display{font-family:'Fraunces',serif;}
+
+/* ---------- layout shell ---------- */
+.shell{max-width:1180px;margin:0 auto;padding:0 24px 80px;}
+header.topbar{
+  position:sticky;top:0;z-index:40;
+  background:rgba(10,14,23,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-soft);
+}
+.topbar-inner{max-width:1180px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-seal{
+  width:38px;height:38px;border-radius:50%;
+  border:1.5px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  background:radial-gradient(circle at 35% 30%, rgba(201,162,75,0.18), transparent 70%);
+}
+.brand-seal svg{width:20px;height:20px;}
+.brand-text .t1{font-family:'Fraunces',serif;font-size:17px;font-weight:600;letter-spacing:0.2px;line-height:1.1;}
+.brand-text .t2{font-size:11px;color:var(--text-faint);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+
+nav.tabs{display:flex;gap:6px;background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;padding:4px;}
+nav.tabs a{
+  appearance:none;border:none;background:transparent;color:var(--text-muted);
+  font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:9px;
+  cursor:pointer;transition:all .15s ease;letter-spacing:0.1px;text-decoration:none;display:inline-block;
+}
+nav.tabs a:hover{color:var(--text);}
+nav.tabs a.active{background:var(--bg-panel-3);color:var(--gold-light);box-shadow:inset 0 0 0 1px var(--border);}
+
+.page{display:none;padding-top:44px;}
+.page.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center;padding-bottom:52px;border-bottom:1px solid var(--border-soft);}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--teal);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;}
+.eyebrow::before{content:'';width:18px;height:1px;background:var(--teal);}
+.hero h1{font-family:'Fraunces',serif;font-size:46px;line-height:1.08;font-weight:600;margin:0 0 18px;letter-spacing:-0.5px;}
+.hero h1 em{font-style:italic;color:var(--gold-light);font-weight:500;}
+.hero p{color:var(--text-muted);font-size:16px;line-height:1.7;max-width:520px;margin:0;}
+.hero-side{
+  border:1px solid var(--border);border-radius:18px;
+  background:linear-gradient(155deg, var(--bg-panel-2), var(--bg-panel));
+  padding:28px;position:relative;overflow:hidden;
+}
+.hero-side::after{content:'';position:absolute;top:-40%;right:-30%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle, rgba(201,162,75,0.12), transparent 70%);}
+.hero-side .label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-faint);margin-bottom:14px;}
+.hero-stat{display:flex;align-items:baseline;gap:8px;margin-bottom:16px;}
+.hero-stat .num{font-family:'Fraunces',serif;font-size:34px;color:var(--gold-light);font-weight:600;}
+.hero-stat .lbl{font-size:13px;color:var(--text-muted);}
+.hero-side hr{border:none;border-top:1px solid var(--border-soft);margin:18px 0;}
+
+/* ---------- generic sections ---------- */
+.section{padding-top:64px;}
+.section-head{margin-bottom:28px;}
+.section-head .kicker{color:var(--teal);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.section-head h2{font-family:'Fraunces',serif;font-size:28px;font-weight:600;margin:0 0 8px;}
+.section-head p{color:var(--text-muted);font-size:14.5px;margin:0;max-width:640px;line-height:1.6;}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+
+.card{
+  background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:14px;padding:22px;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.card:hover{border-color:var(--border);}
+.card .icon-badge{
+  width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  background:var(--bg-panel-3);border:1px solid var(--border);margin-bottom:14px;
+}
+.card .icon-badge svg{width:18px;height:18px;color:var(--gold-light);}
+.card h3{font-size:15.5px;font-weight:600;margin:0 0 8px;}
+.card p{font-size:13.5px;color:var(--text-muted);line-height:1.6;margin:0;}
+
+/* pillar cards */
+.pillar-card{
+  background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:14px;padding:20px;cursor:pointer;
+  transition:border-color .15s ease;
+}
+.pillar-card:hover{border-color:var(--gold);}
+.pillar-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.pillar-code{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;
+  background:var(--bg-panel-3);border:1px solid var(--gold);color:var(--gold-light);
+}
+.pillar-name{font-size:14.5px;font-weight:600;}
+.pillar-groups{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-soft);}
+.pillar-card.open .pillar-groups{display:block;}
+.pillar-groups .grow{margin-bottom:10px;}
+.pillar-groups .range{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);letter-spacing:0.3px;}
+.pillar-groups .lbl{font-size:12.5px;color:var(--text-muted);margin-top:2px;line-height:1.5;}
+.pillar-note{margin-top:12px;font-size:12px;color:var(--amber);background:rgba(217,193,90,0.08);border:1px solid rgba(217,193,90,0.25);padding:9px 11px;border-radius:8px;line-height:1.5;}
+.pillar-exception{margin-top:12px;font-size:12px;color:var(--orange);background:rgba(227,146,79,0.08);border:1px solid rgba(227,146,79,0.28);padding:9px 11px;border-radius:8px;line-height:1.5;}
+
+/* severity */
+.sev-card{border-radius:14px;padding:20px;border:1px solid var(--border-soft);background:var(--bg-panel);position:relative;overflow:hidden;}
+.sev-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
+.sev-card.green::before{background:var(--green);}
+.sev-card.amber::before{background:var(--amber);}
+.sev-card.orange::before{background:var(--orange);}
+.sev-card.red::before{background:var(--red);}
+.sev-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.sev-level{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-faint);letter-spacing:1px;}
+.sev-name{font-family:'Fraunces',serif;font-size:19px;font-weight:600;}
+.sev-card.green .sev-name{color:var(--green);}
+.sev-card.amber .sev-name{color:var(--amber);}
+.sev-card.orange .sev-name{color:var(--orange);}
+.sev-card.red .sev-name{color:var(--red);}
+.sev-card p{font-size:12.8px;color:var(--text-muted);line-height:1.6;margin:0;}
+
+/* process flow / jenis hukuman */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.flow-step{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:12px;padding:16px 14px;position:relative;}
+.flow-num{font-family:'Fraunces',serif;font-size:22px;color:var(--gold-light);font-weight:600;margin-bottom:8px;}
+.flow-step h4{font-size:12.8px;font-weight:600;margin:0 0 5px;}
+.flow-step p{font-size:11px;color:var(--text-muted);margin:0;line-height:1.5;}
+.flow-step.critical{border-color:var(--red);background:rgba(225,91,111,0.07);}
+.flow-step.critical .flow-num{color:var(--red);}
+.flow-step.multi{border-color:var(--gold);}
+
+footer.foot{margin-top:80px;border-top:1px solid var(--border-soft);padding-top:28px;display:flex;justify-content:space-between;color:var(--text-faint);font-size:12px;flex-wrap:wrap;gap:10px;}
+
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr;}
+  .grid3,.grid4,.grid2{grid-template-columns:1fr 1fr;}
+  .flow{grid-template-columns:repeat(2,1fr);}
+  .hero h1{font-size:32px;}
+}
+@media (max-width:560px){
+  .grid3,.grid4,.grid2{grid-template-columns:1fr;}
+  nav.tabs{width:100%;justify-content:space-between;}
+  nav.tabs a{flex:1;padding:9px 6px;font-size:12px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="1.6"><path d="M12 3v18M7 7l-4 8a4 4 0 0 0 8 0l-4-8Zm10 0l-4 8a4 4 0 0 0 8 0l-4-8ZM4 21h16M6 7h12"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="t1">Tim Hukuman Jabatan</div>
+        <div class="t2">Disciplinary Committee</div>
+      </div>
+    </div>
+    <nav class="tabs" id="navTabs">
+      <a href="tim-hukuman-jabatan.html" class="active">Beranda</a>
+      <a href="voting.html">Voting</a>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- ================= PAGE 1: BERANDA ================= -->
+  <section class="page active" id="page-home">
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Pedoman Internal Tata Tertib</div>
+        <h1>Menegakkan disiplin dengan <em>keadilan &amp; konsistensi</em>.</h1>
+        <p>Tim Hukuman Jabatan mengelola klasifikasi pelanggaran pegawai dan proses sidang disipliner berdasarkan Master Katalog Pelanggaran — standar internal untuk memetakan jenis, kode, dan tingkat keparahan sebuah kasus sebelum sanksi ditetapkan.</p>
+      </div>
+      <div class="hero-side">
+        <div class="label">Ringkasan Sistem</div>
+        <div class="hero-stat"><span class="num">12</span><span class="lbl">Pilar klasifikasi pelanggaran (F–P)</span></div>
+        <div class="hero-stat"><span class="num">4</span><span class="lbl">Tingkat keparahan — Minor s/d Critical</span></div>
+        <div class="hero-stat"><span class="num">10</span><span class="lbl">Tahap alur proses disipliner end-to-end</span></div>
+        <hr>
+        <p style="font-size:12px;color:var(--text-faint);line-height:1.6;margin:0;">Sanksi final wajib disesuaikan dengan PP, PKB, kontrak kerja, dan UU Ketenagakerjaan yang berlaku.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="kicker">Landasan Penerapan</div>
+        <h2>Konteks &amp; Prinsip Dasar</h2>
+      </div>
+      <div class="grid3" id="landasanGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="kicker">Arsitektur Katalog</div>
+        <h2>12 Pilar Klasifikasi Pelanggaran</h2>
+        <p>Klik tiap pilar untuk melihat rincian kode dan kelompok pelanggaran di dalamnya.</p>
+      </div>
+      <div class="grid3" id="pillarGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="kicker">Matriks Klasifikasi</div>
+        <h2>Tingkat Keparahan (Severity)</h2>
+        <p>Prosedur tetap: tentukan KODE kasus (F, E, D, dst.) terlebih dahulu, kemudian tetapkan LEVEL dampaknya berdasarkan matriks ini.</p>
+      </div>
+      <div class="grid4" id="sevGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="kicker">Jenis Sanksi</div>
+        <h2>Hukuman yang Dapat Diberikan</h2>
+        <p>Delapan bentuk sanksi yang dapat dijatuhkan berdasarkan hasil investigasi, tingkat keparahan (severity), dan faktor pemberat/meringankan.</p>
+      </div>
+      <div class="flow" id="flowGrid"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="kicker">Kesimpulan</div>
+        <h2>Prinsip Penegakan Tata Tertib</h2>
+      </div>
+      <div class="grid3">
+        <div class="card">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#e4c77a" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3>Berbasis Fakta, Bukan Asumsi</h3>
+          <p>Semua penentuan kode (khususnya kategori berat seperti Fraud &amp; Etika) memerlukan investigasi menyeluruh dan bukti solid sebelum menjatuhkan hukuman.</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#e4c77a" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+          <h3>Hierarki Proses yang Ketat</h3>
+          <p>Selalu identifikasi KODE terlebih dahulu, pastikan itu pelanggaran tata tertib (bukan masalah kinerja murni), barulah tentukan LEVEL (L1–L4).</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#e4c77a" stroke-width="1.7"><path d="M12 21c-4-2.5-8-6-8-11a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 5-4 8.5-8 11Z"/></svg></div>
+          <h3>Keadilan &amp; Perlindungan Karyawan</h3>
+          <p>Katalog ini dirancang bukan semata untuk menghukum, tetapi melindungi integritas perusahaan sekaligus memastikan setiap karyawan mendapat perlakuan dan hak klarifikasi yang adil.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="foot">
+    <span>Tim Hukuman Jabatan — Sistem Internal Disciplinary Committee</span>
+    <span>Merujuk pada Peraturan Perusahaan (PP), PKB &amp; UU Ketenagakerjaan</span>
+  </footer>
+</div>
+
+<script>
+/* ============================= DATA ============================= */
+const ICONS = {
+  F: '<path d="M3 10h18M6 10V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3M6 10v9a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-9"/><circle cx="12" cy="14.5" r="2"/>',
+  I: '<path d="M12 2a5 5 0 0 0-5 5c0 3 5 8 5 8s5-5 5-8a5 5 0 0 0-5-5Z"/><circle cx="12" cy="7" r="1.6"/>',
+  B: '<path d="M8 12h8M4 7l4-3 4 3 4-3 4 3M4 7v6a4 4 0 0 0 4 4M20 7v6a4 4 0 0 1-4 4"/>',
+  E: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  K: '<path d="M14.5 3 21 9.5 12 18l-4-4 8.5-8.5ZM3 21l6-2 8-8-4-4-8 8-2 6Z"/>',
+  D: '<path d="M9 11l2 2 4-4M5 5h14v16H5z"/>',
+  M: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+  A: '<path d="M3 21h18M5 21V10l7-6 7 6v11M9 21v-6h6v6"/>',
+  S: '<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+  T: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+  C: '<path d="M9 12l2 2 4-4"/><path d="M12 2 4 5v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V5l-8-3Z"/>',
+  P: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
+};
+
+const PILLARS = [
+ {code:'F', name:'Fraud & Keuangan', desc:'Pelanggaran fundamental terhadap aset finansial dan posisi jabatan.', note:'Prioritas investigasi tinggi — wajib berbasis bukti.', groups:[
+   {range:'F-01 – F-03', label:'Penggelapan & pencurian uang (perusahaan/customer)'},
+   {range:'F-04 – F-08', label:'Manipulasi cash, transaksi, laporan & mark-up biaya'},
+   {range:'F-09 – F-11', label:'Penyalahgunaan dana & menerima imbalan pribadi'},
+   {range:'F-12 – F-15', label:'Kolusi fraud, menyembunyikan/merusak bukti'},
+ ]},
+ {code:'I', name:'Integritas', desc:'Perilaku yang mengkhianati kepercayaan atas jabatan yang diberikan.', groups:[
+   {range:'I-01 – I-03', label:'Informasi palsu & memalsukan keterangan'},
+   {range:'I-04 – I-05', label:'Penyalahgunaan jabatan untuk untung pribadi'},
+   {range:'I-06 – I-08', label:'Menutupi kesalahan/pelanggaran, kesaksian palsu'},
+   {range:'I-09 – I-10', label:'Insider trading & konflik tersembunyi'},
+ ]},
+ {code:'B', name:'Konflik Kepentingan', desc:'Keputusan kerja yang dipengaruhi kepentingan pribadi.', groups:[
+   {range:'B-01 – B-02', label:'Tidak lapor hubungan bisnis & keputusan bias'},
+   {range:'B-03 – B-04', label:'Menggunakan/menerima untung dari vendor'},
+   {range:'B-05 – B-06', label:'Nepotisme & mengarahkan pekerjaan tanpa dasar sah'},
+ ]},
+ {code:'E', name:'Etika & Asusila', desc:'Perilaku yang merusak lingkungan kerja yang aman dan profesional.', note:'Wajib menjaga kerahasiaan, melindungi pihak terkait, pemeriksaan objektif, dan dilarang menyimpulkan bersalah sebelum investigasi selesai.', groups:[
+   {range:'E-01 – E-04', label:'Pelecehan seksual (fisik/verbal/komentar)'},
+   {range:'E-05 – E-06', label:'Mengirim materi seksual & perilaku tidak senonoh'},
+   {range:'E-07 – E-10', label:'Hubungan terlarang (konflik kepentingan), merendahkan martabat, & pelanggaran kode etik'},
+ ]},
+ {code:'K', name:'Kekerasan & Intimidasi', desc:'Tindakan yang mengancam keselamatan fisik dan psikis rekan kerja.', groups:[
+   {range:'K-01 – K-02', label:'Perkelahian & kekerasan fisik'},
+   {range:'K-03 – K-05', label:'Ancaman, intimidasi, & pemaksaan'},
+   {range:'K-06', label:'Bullying / perundungan'},
+   {range:'K-07 – K-08', label:'Mengancam atasan, bawahan, atau rekan kerja'},
+   {range:'K-09', label:'Perusakan barang saat konflik'},
+ ]},
+ {code:'D', name:'Disiplin Kerja', desc:'Ketidakpatuhan terhadap SOP dan instruksi kerja sah.', groups:[
+   {range:'D-01 – D-03', label:'Langgar SOP, abaikan instruksi sah, lalai tugas'},
+   {range:'D-04 – D-07', label:'Tinggalkan kerja, abaikan alat/prosedur keselamatan'},
+   {range:'D-08 – D-12', label:'Laporan telat/fiktif, abaikan atasan, langgar tata tertib'},
+ ]},
+ {code:'M', name:'Mangkir & Kehadiran', desc:'Pelanggaran terkait kewajiban jam kerja dan kehadiran.', note:'Konsekuensi hari mangkir wajib merujuk ketat pada PP/PKB.', groups:[
+   {range:'M-01 – M-04', label:'Tidak masuk, pulang cepat, tinggalkan pos tanpa izin'},
+   {range:'M-05 – M-08', label:'Terlambat, tidak absen, manipulasi/titip absen'},
+   {range:'M-09 – M-10', label:'Penyalahgunaan izin & alasan fiktif'},
+ ]},
+ {code:'A', name:'Aset Perusahaan', desc:'Kelalaian atau penyalahgunaan aset milik perusahaan.', note:'Selalu bedakan tegas antara Kelalaian (negligence) dengan Kesengajaan (intent).', groups:[
+   {range:'A-01 – A-02', label:'Merusak aset (karena lalai vs sengaja)'},
+   {range:'A-03 – A-05', label:'Pakai kendaraan/fasilitas pribadi, bawa keluar tanpa izin'},
+   {range:'A-06 – A-08', label:'Menghilangkan aset & penyalahgunaan alat kerja'},
+ ]},
+ {code:'S', name:'Security & Kerahasiaan', desc:'Kebocoran atau akses ilegal terhadap informasi rahasia.', groups:[
+   {range:'S-01 – S-02', label:'Membocorkan data perusahaan/customer'},
+   {range:'S-03 – S-05', label:'Berbagi password & akses sistem ilegal'},
+   {range:'S-06 – S-10', label:'Membawa/merekam/menyebar data rahasia & abaikan SOP fisik/data'},
+ ]},
+ {code:'T', name:'Teknologi & Sistem', desc:'Penyalahgunaan akun, akses, dan perangkat IT perusahaan.', groups:[
+   {range:'T-01 – T-04', label:'Salah guna akun, akses ilegal, ubah/hapus data'},
+   {range:'T-05 – T-08', label:'Instal software ilegal, aktivitas terlarang via IT, bagi kredensial & curi data'},
+ ]},
+ {code:'C', name:'Compliance', desc:'Ketidakpatuhan terhadap regulasi, audit, dan kebijakan internal.', groups:[
+   {range:'C-01 – C-04', label:'Melanggar PP, PKB, kebijakan internal, & regulasi'},
+   {range:'C-05 – C-08', label:'Mengabaikan kewajiban compliance, hasil audit, info palsu ke auditor, & menghambat pemeriksaan'},
+ ]},
+ {code:'P', name:'Performance', desc:'Pengecualian kritis — bukan kategori pelanggaran tata tertib.', exception:'JANGAN otomatis dianggap sebagai Misconduct. Wajib melalui alur: Assessment → Coaching → Training → PIP/Evaluasi → Keputusan.', groups:[
+   {range:'P-01 – P-07', label:'Target/KPI tak tercapai, produktivitas/kualitas rendah, kompetensi tak sesuai, gagal merespon coaching'},
+ ]},
+];
+
+const SEVERITY = [
+ {level:'L1', name:'Minor', color:'green', desc:'Dampak sangat kecil pada perusahaan, pelanggaran pertama kali, dan umumnya bersifat tidak disengaja.'},
+ {level:'L2', name:'Moderate', color:'amber', desc:'Bentuk kelalaian atau pelanggaran yang mulai memberikan dampak langsung pada operasional atau ritme pekerjaan.'},
+ {level:'L3', name:'Major', color:'orange', desc:'Pelanggaran serius, dilakukan secara berulang, disengaja, atau memiliki dampak operasional/finansial signifikan.'},
+ {level:'L4', name:'Critical', color:'red', desc:'Pelanggaran berat seperti fraud, penggelapan, pencurian, manipulasi serius, kekerasan fisik, atau dampak luar biasa bagi perusahaan.'},
+];
+
+const PROCESS_STEPS = [
+ {n:1,title:'Kontrak Tidak Diperpanjang',desc:'Hubungan kerja pegawai kontrak/PKWT dihentikan dengan tidak melanjutkan ke periode berikutnya.'},
+ {n:2,title:'Dipecat Secara Tidak Hormat',desc:'Pemutusan Hubungan Kerja (PHK) dengan status tidak hormat akibat pelanggaran berat/kritikal.'},
+ {n:3,title:'Diberi SP dan Pembinaan',desc:'Surat Peringatan (SP1/SP2/SP3) disertai program pembinaan perilaku atau kinerja.'},
+ {n:4,title:'Fraud: Wajib Kembalikan & Pecat Tidak Hormat',desc:'Khusus kasus fraud — pegawai wajib mengembalikan kerugian dan tetap dijatuhi PHK tidak hormat.',critical:true},
+ {n:5,title:'Grounded / Dibebastugaskan Sementara',desc:'Penonaktifan sementara dari tugas/jabatan selama proses investigasi atau evaluasi berjalan.'},
+ {n:6,title:'Mutasi',desc:'Pemindahan pegawai ke unit kerja, divisi, atau lokasi penempatan yang berbeda.'},
+ {n:7,title:'Demosi',desc:'Penurunan jabatan, level, atau grade dari posisi yang dipegang sebelumnya.'},
+ {n:8,title:'Multi-Sanksi',desc:'Kombinasi dari dua atau lebih jenis hukuman di atas, dijatuhkan sesuai tingkat keparahan kasus.',multi:true},
+];
+
+const LANDASAN = [
+ {title:'Rancangan Sistem', desc:'Katalog ini berfungsi murni sebagai standar klasifikasi internal untuk memetakan jenis dan kode pelanggaran secara sistematis.', icon:'<path d="M9 12l2 2 4-4M12 3l8 4v5c0 5-3.5 9-8 10-4.5-1-8-5-8-10V7l8-4Z"/>'},
+ {title:'Penyesuaian Final', desc:'Jenis sanksi final wajib disesuaikan dengan Peraturan Perusahaan (PP), Perjanjian Kerja Bersama (PKB), kontrak kerja, dan UU Ketenagakerjaan yang berlaku.', icon:'<path d="M12 3v18M5 8l-3 6a3.5 3.5 0 0 0 7 0l-3-6Zm14 0l-3 6a3.5 3.5 0 0 0 7 0l-3-6ZM4 21h16M6 8h12"/>'},
+ {title:'Tujuan Utama', desc:'Menciptakan keadilan, konsistensi, dan transparansi mutlak dalam setiap penanganan kasus indisipliner.', icon:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="#e4c77a"/>'},
+];
+
+/* ============================= RENDER: STATIC HOME CONTENT ============================= */
+function renderLandasan(){
+  document.getElementById('landasanGrid').innerHTML = LANDASAN.map(l => `
+    <div class="card">
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#e4c77a" stroke-width="1.7">${l.icon}</svg></div>
+      <h3>${l.title}</h3>
+      <p>${l.desc}</p>
+    </div>`).join('');
+}
+
+function renderPillars(){
+  document.getElementById('pillarGrid').innerHTML = PILLARS.map((p,i) => `
+    <div class="pillar-card" data-idx="${i}">
+      <div class="pillar-top">
+        <div class="pillar-code">${p.code}</div>
+        <div class="pillar-name">${p.name}</div>
+      </div>
+      <p style="font-size:12.5px;color:var(--text-muted);margin:0;line-height:1.55;">${p.desc}</p>
+      <div class="pillar-groups">
+        ${p.groups.map(g => `<div class="grow"><div class="range">${g.range}</div><div class="lbl">${g.label}</div></div>`).join('')}
+        ${p.note ? `<div class="pillar-note">${p.note}</div>` : ''}
+        ${p.exception ? `<div class="pillar-exception"><strong>Pengecualian:</strong> ${p.exception}</div>` : ''}
+      </div>
+    </div>`).join('');
+
+  document.querySelectorAll('.pillar-card').forEach(el => {
+    el.addEventListener('click', () => el.classList.toggle('open'));
+  });
+}
+
+function renderSeverity(){
+  document.getElementById('sevGrid').innerHTML = SEVERITY.map(s => `
+    <div class="sev-card ${s.color}">
+      <div class="sev-top"><span class="sev-level">${s.level}</span></div>
+      <div class="sev-name" style="margin-bottom:8px;">${s.name}</div>
+      <p>${s.desc}</p>
+    </div>`).join('');
+}
+
+function renderFlow(){
+  document.getElementById('flowGrid').innerHTML = PROCESS_STEPS.map(s => `
+    <div class="flow-step${s.critical ? ' critical' : ''}${s.multi ? ' multi' : ''}">
+      <div class="flow-num">${String(s.n).padStart(2,'0')}</div>
+      <h4>${s.title}</h4>
+      <p>${s.desc}</p>
+    </div>`).join('');
+}
+
+/* ============================= INIT ============================= */
+renderLandasan();
+renderPillars();
+renderSeverity();
+renderFlow();
+</script>
+</body>
+</html>
